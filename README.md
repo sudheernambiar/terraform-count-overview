@@ -33,7 +33,7 @@ resource "aws_instance" "server" {
   vpc_security_group_ids = [ "sg-0f29de1098cac414f" ]
   key_name               = "Devops-TEST"
   tags = {
-    "Name" = "Server-{$count_intex}"
+    "Name" = "Server-{$count_index}"
   }
 }
 
