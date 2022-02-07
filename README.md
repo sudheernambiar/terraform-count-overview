@@ -33,7 +33,7 @@ resource "aws_instance" "server" {
   vpc_security_group_ids = [ "sg-0f29de1098cac414f" ]
   key_name               = "Devops-TEST"
   tags = {
-    "Name" = "Server"
+    "Name" = "Server-{$count_intex}"
   }
 }
 
@@ -47,7 +47,30 @@ output "Server2_pubIP" {
 ```
 
 
+
+```
+In above we have got two instances IPs as mentioned in the output. 
+
+## Execution steps.
+- terraform init (to initialise with the provider)
+```
+$ terraform init 
+```
+- To identify the procedure pre flight results
+```
+$ terraform plan 
+```
+- Execute the plan (with a yes you can permit after an overview, or explicitly work it with "terraform apply -auto-approve".
+```
+$ terraform apply 
+```
+- Incase to deploy without a pre flight check.
+```
+$ terraform apply -auto-approve 
+```
+  
 ### Output
+
 ```
 Changes to Outputs:
   + Server1_publIP = (known after apply)
@@ -61,16 +84,18 @@ aws_instance.server[0]: Still creating... [20s elapsed]
 aws_instance.server[0]: Creation complete after 21s [id=i-0989a9687963e5b13]
 aws_instance.server[1]: Still creating... [30s elapsed]
 aws_instance.server[1]: Creation complete after 31s [id=i-0ed62be6f2978346b]
-
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 
 Outputs:
 
 Server1_publIP = "3.110.186.106"
 Server2_pubIP = "13.126.33.57"
+Note: In case you want to make a clean-up use "terraform destroy"
 ```
-
-
+```
+$ terraform destroy -auto-approve
+```
+### Output
 ```
 Plan: 0 to add, 0 to change, 2 to destroy.
 
@@ -88,3 +113,10 @@ aws_instance.server[1]: Destruction complete after 30s
 
 Destroy complete! Resources: 2 destroyed.
 ```
+
+## Observations.
+- When we executed 2 instanced were popped up. Which as per the count_index will have two names with server-0 and server-1.
+
+## Summary
+
+Codes can be much more simpler if we used such logics, which intact give us more agility in workplace.
