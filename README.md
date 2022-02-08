@@ -56,17 +56,30 @@ We can use conditional statements also with the count, as below, if the conditio
 #if you want to test this case, please do not use the code mentioend above.
   
 variable "env" {
-  default = "dev"   # can have any other value, but if it matches only dev as below, it works.
+  default = "prod"       # Value can be prod/test/dev as you like.
 }
 
-resource "aws_instance" "server" {
-  count = var.env == "dev" ? 1 : 0
+#this will execute if va.env matches to the cases mentioned below, 
+
+resource "aws_instance" "Production" {
+  count = var.env == "prod" ? 0 : 1
   ami                    = "ami-03fa4afc89e4a8a09"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [ "sg-0f29de1098cac414f" ]
   key_name               = "Devops-TEST"
   tags = {
-    "Name" = "Server"
+    "Name" = "Production"
+  }
+}
+
+resource "aws_instance" "test" {
+  count = var.env == "test" ? 0 : 1
+  ami                    = "ami-03fa4afc89e4a8a09"
+  instance_type          = "t2.nano"
+  vpc_security_group_ids = [ "sg-0f29de1098cac414f" ]
+  key_name               = "Devops-TEST"
+  tags = {
+    "Name" = "Production"
   }
 }
 ```
