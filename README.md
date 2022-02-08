@@ -45,12 +45,33 @@ output "Server2_pubIP" {
   value = aws_instance.server[1].public_ip
 }
 ```
-
-
-
-```
 In above we have got two instances IPs as mentioned in the output. 
 
+### If statement with count.
+
+We can use conditional statements also with the count, as below, if the condition matches, then it will create an instance, otherwise, it wont ceate anything.
+  
+```
+# vi instances.tf
+#if you want to test this case, please do not use the code mentioend above.
+  
+variable "env" {
+  default = "dev"   # can have any other value, but if it matches only dev as below, it works.
+}
+
+resource "aws_instance" "server" {
+  count = var.env == "dev" ? 1 : 0
+  ami                    = "ami-03fa4afc89e4a8a09"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [ "sg-0f29de1098cac414f" ]
+  key_name               = "Devops-TEST"
+  tags = {
+    "Name" = "Server"
+  }
+}
+```
+  
+  
 ## Execution steps.
 - terraform init (to initialise with the provider)
 ```
