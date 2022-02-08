@@ -50,7 +50,7 @@ In above we have got two instances IPs as mentioned in the output.
 ### If statement with count.
 
 We can use conditional statements also with the count, as below, if the condition matches, then it will create an instance, otherwise, it wont ceate anything.
-  
+### Note, this is a possibility you can check. The output shown is only from the previous terraform script.
 ```
 # vi instances.tf
 #if you want to test this case, please do not use the code mentioend above.
